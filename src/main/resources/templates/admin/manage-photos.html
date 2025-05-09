@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Photos - RC Photography</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{admin/AdminNavbar.html}"></div>
+
+<div class="container mt-5" data-aos="fade-up">
+    <h2 class="text-center mb-4"><i class="bi bi-images"></i> Manage Photos</h2>
+    <a href="/admin/add" class="btn btn-success mb-3"><i class="bi bi-plus-lg"></i> Add New Photo</a>
+    
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Date Created</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image Preview</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="photo : ${photoPage.content}">
+            <td th:text="${photo.id}"></td>
+            <td th:text="${#temporals.format(photo.dateCreated, 'yyyy-MM-dd')}"></td>
+            <td th:text="${photo.title}"></td>
+            <td th:text="${photo.description}"></td>
+            <td>
+                <img th:src="@{/photos/{filename}(filename=${photo.imageUrl})}" 
+                     class="img-fluid rounded shadow-sm border" 
+                     style="width: 150px; height: auto; object-fit: cover;">
+            </td>
+            <td>
+                <a th:href="@{/admin/edit/{id}(id=${photo.id})}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-pencil-fill"></i> Edit
+                </a>
+                <a th:href="@{/admin/delete/{id}(id=${photo.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this photo?');">
+                    <i class="bi bi-trash-fill"></i> Delete
+                </a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(photoPage.content)}">
+            <td colspan="6" class="text-center text-muted">No photos found.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <nav th:if="${photoPage.totalPages > 1}">
+        <ul class="pagination justify-content-center mt-4">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/manage-photos(page=${currentPage - 1}, size=5)}">Previous</a>
+            </li>
+            <li class="page-item" 
+                th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/admin/manage-photos(page=${i}, size=5)}" 
+                   th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/manage-photos(page=${currentPage + 1}, size=5)}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<footer class="bg-dark text-white text-center p-4 mt-5">
+    <p class="mb-0">&copy; 2025 RC Photography. All rights reserved. <i class="bi bi-camera-fill"></i></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>

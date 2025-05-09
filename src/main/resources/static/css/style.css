@@ -1,0 +1,9 @@
+body { font-family: 'Segoe UI', sans-serif; }
+h1, h2, h5 { font-weight: 600; }
+.card { transition: transform 0.3s ease; }
+.card:hover { transform: scale(1.02); }
+footer { 
+  position: fixed; 
+  bottom: 0; 
+  text-align: center; /* Center text inside footer */
+}

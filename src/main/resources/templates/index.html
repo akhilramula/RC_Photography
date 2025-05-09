@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>RC Photography</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+		.hero {
+		    background: linear-gradient(rgba(0, 47, 95, 0.6), rgba(0, 47, 95, 0.6)), url('images/hero-bg.jpg') center/cover no-repeat;
+		    color: white;
+		    padding: 6rem 1rem;
+		}
+
+        .features .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .features .card:hover {
+            transform: translateY(-5px);
+        }
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+		.carousel-item img {
+		    object-fit: cover;
+		    height: 600px; /* Increased height */
+		    width: 100%;
+		}
+    </style>
+</head>
+<body>
+    <div th:replace="~{Navbar.html}"></div>
+
+    <!-- Hero Section -->
+    <section class="hero text-center" data-aos="fade-in">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Welcome to RC Photography</h1>
+            <p class="lead mb-4">Crafting timeless stories through the lens</p>
+            <a href="/portfolio" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-camera-fill me-2"></i>Explore Portfolio</a>
+        </div>
+    </section>
+
+    <!-- Bootstrap Image Slideshow -->
+    <section class="container my-5" data-aos="fade-up">
+        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner rounded-4 shadow-sm">
+                <div class="carousel-item active">
+                    <img src="images/image1.jpeg" class="d-block w-100" alt="Wedding shoot">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/image2.jpg" class="d-block w-100" alt="Event photo">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/image3.jpeg" class="d-block w-100" alt="Portrait">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features py-5">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-up"><i class="bi bi-stars"></i> What Sets Us Apart</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="zoom-in">
+                    <div class="card text-center p-4">
+                        <div class="mb-3 text-danger fs-1"><i class="bi bi-heart-fill"></i></div>
+                        <h5 class="fw-semibold">Passion for Photography</h5>
+                        <p class="text-muted">Every frame we capture is filled with purpose and emotion.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card text-center p-4">
+                        <div class="mb-3 text-primary fs-1"><i class="bi bi-camera-reels"></i></div>
+                        <h5 class="fw-semibold">High-End Gear</h5>
+                        <p class="text-muted">We use professional equipment to ensure premium image quality.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card text-center p-4">
+                        <div class="mb-3 text-success fs-1"><i class="bi bi-people-fill"></i></div>
+                        <h5 class="fw-semibold">Client-Focused</h5>
+                        <p class="text-muted">Your story is unique — we tailor every shoot to reflect that.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center p-4 mt-5">
+        <p class="mb-0">&copy; 2025 RC Photography. All rights reserved. <i class="bi bi-camera-fill"></i></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>
