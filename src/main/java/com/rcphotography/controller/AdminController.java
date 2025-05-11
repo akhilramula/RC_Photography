@@ -1,7 +1,9 @@
 package com.rcphotography.controller;
 
+import com.rcphotography.entity.BookingRequest;
 import com.rcphotography.entity.Photo;
 import com.rcphotography.repository.ContactMessageRepository;
+import com.rcphotography.service.BookingService;
 import com.rcphotography.service.PhotoService;
 
 import java.io.File;
@@ -9,6 +11,8 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +24,21 @@ public class AdminController {
 
 	@Autowired
 	private PhotoService photoService;
-	
-	 @Autowired
-	    private ContactMessageRepository messageRepo;
+
+	@Autowired
+	private ContactMessageRepository messageRepo;
+
+	@Autowired
+	private BookingService bookingService;
 
 	@GetMapping("/dashboard")
 	public String adminDashboard(Model model) {
 		model.addAttribute("totalPhotos", photoService.getTotalPhotos());
 		model.addAttribute("recentPhotos", photoService.getRecentPhotos());
 		model.addAttribute("recentMessages", messageRepo.findTop5ByOrderByDateSentDesc());
+		model.addAttribute("recentBookings", bookingService.getRecentBookings());
 		return "admin/AdminDashboard";
 	}
-
 
 	@GetMapping("/add")
 	public String showAddPhotoForm(Model model) {
@@ -62,52 +69,53 @@ public class AdminController {
 		model.addAttribute("photo", photo);
 		return "admin/edit-photo"; // edit-photo.html
 	}
-	
+
 	@PostMapping("/edit")
-	public String updatePhoto(@ModelAttribute Photo formPhoto,
-	                          @RequestParam("image") MultipartFile imageFile) {
+	public String updatePhoto(@ModelAttribute Photo formPhoto, @RequestParam("image") MultipartFile imageFile) {
 
-	    Photo existingPhoto = photoService.getPhotoById(formPhoto.getId());
+		Photo existingPhoto = photoService.getPhotoById(formPhoto.getId());
 
-	    // Copy only fields that were edited
-	    existingPhoto.setTitle(formPhoto.getTitle());
-	    existingPhoto.setDescription(formPhoto.getDescription());
+		// Copy only fields that were edited
+		existingPhoto.setTitle(formPhoto.getTitle());
+		existingPhoto.setDescription(formPhoto.getDescription());
 
-	    if (!imageFile.isEmpty()) {
-	        String uploadDir = "D:/uploads";
-	        String filename = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-	        try {
-	            File dest = new File(uploadDir + File.separator + filename);
-	            dest.getParentFile().mkdirs();
-	            imageFile.transferTo(dest);
-	            existingPhoto.setImageUrl(filename);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		if (!imageFile.isEmpty()) {
+			String uploadDir = "D:/uploads";
+			String filename = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+			try {
+				File dest = new File(uploadDir + File.separator + filename);
+				dest.getParentFile().mkdirs();
+				imageFile.transferTo(dest);
+				existingPhoto.setImageUrl(filename);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
-	    // No need to set dateCreated; it's preserved
-	    // lastUpdated will be set automatically by @PreUpdate
-	    photoService.editPhotoById(existingPhoto);
+		// No need to set dateCreated; it's preserved
+		// lastUpdated will be set automatically by @PreUpdate
+		photoService.editPhotoById(existingPhoto);
 
-	    return "redirect:/admin/manage-photos";
+		return "redirect:/admin/manage-photos";
 	}
 
-
-	
 	@GetMapping("/manage-photos")
-	public String managePhotos(
-	        @RequestParam(defaultValue = "0") int page,
-	        @RequestParam(defaultValue = "5") int size,
-	        Model model) {
+	public String managePhotos(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+			Model model) {
 
-	    Page<Photo> photoPage = photoService.getPhotosPaginated(page, size);
-	    model.addAttribute("photoPage", photoPage);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPages", photoPage.getTotalPages());
-	    return "admin/manage-photos";
+		Page<Photo> photoPage = photoService.getPhotosPaginated(page, size);
+		model.addAttribute("photoPage", photoPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", photoPage.getTotalPages());
+		return "admin/manage-photos";
 	}
 
-	
+	@GetMapping("/admin/bookings")
+	public String viewBookings(Model model, @RequestParam(defaultValue = "0") int page) {
+		Page<BookingRequest> bookingsPage = bookingService
+				.getAllBookings(PageRequest.of(page, 10, Sort.by("bookedAt").descending()));
+		model.addAttribute("bookings", bookingsPage);
+		return "admin/bookings";
+	}
 
 }

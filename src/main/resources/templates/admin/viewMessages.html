@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Messages - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{admin/AdminNavbar.html}"></div>
+
+<div class="container mt-5" data-aos="fade-up">
+    <h2 class="mb-4" data-aos="fade-right"><i class="bi bi-envelope"></i> Contact Messages</h2>
+
+    <div class="card" data-aos="zoom-in">
+        <div class="card-body">
+            <table class="table table-bordered table-hover" data-aos="fade-up" data-aos-delay="100">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Date Sent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="msg : ${messages.content}" data-aos="fade-up" data-aos-delay="200">
+                        <td th:text="${msg.id}"></td>
+                        <td th:text="${msg.name}"></td>
+                        <td th:text="${msg.email}"></td>
+                        <td th:text="${msg.message}"></td>
+                        <td th:text="${#temporals.format(msg.dateSent, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(messages)}" data-aos="fade-up">
+                        <td colspan="5" class="text-center text-muted">No messages found.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <nav th:if="${messages.totalPages > 1}" class="mt-4" data-aos="fade-up" data-aos-delay="300">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${messages.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{'/admin/messages?page=' + ${messages.number - 1}}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(0, messages.totalPages - 1)}"
+                        th:classappend="${messages.number == page} ? 'active'">
+                        <a class="page-link" th:href="@{'/admin/messages?page=' + ${page}}" th:text="${page + 1}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${messages.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{'/admin/messages?page=' + ${messages.number + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bookings - RC Photography Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .table thead {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .pagination .page-link {
+            color: #343a40;
+        }
+        .pagination .active .page-link {
+            background-color: #343a40;
+            border-color: #343a40;
+			color: white;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{admin/AdminNavbar.html}"></div>
+
+<div class="container mt-5" data-aos="fade-up">
+    <h2 class="mb-4"><i class="bi bi-calendar-check"></i> All Bookings</h2>
+
+    <div class="card" data-aos="zoom-in">
+        <div class="card-body">
+            <table class="table table-bordered" data-aos="fade-up" data-aos-delay="100">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Session Type</th>
+                        <th>Preferred Date</th>
+                        <th>Preferred Time</th>
+                        <th>Booked At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="booking : ${bookings.content}" data-aos="fade-up" data-aos-delay="200">
+                        <td th:text="${booking.id}">1</td>
+                        <td th:text="${booking.fullName}">Name</td>
+                        <td th:text="${booking.email}">email@example.com</td>
+                        <td th:text="${booking.phone}">1234567890</td>
+                        <td th:text="${booking.serviceType}">Wedding Photography</td>
+                        <td th:text="${booking.datePreferred}">2025-05-14</td>
+                        <td th:text="${booking.timePreferred}">12:00</td>
+                        <td th:text="${booking.createdAt}">2025-05-11</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(bookings)}" data-aos="fade-up">
+                        <td colspan="8" class="text-center text-muted">No bookings found.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<!-- Inside your pagination section -->
+			<nav th:if="${bookings.totalPages > 1}" aria-label="Bookings pagination" data-aos="fade-up" data-aos-delay="300">
+			    <ul class="pagination justify-content-center">
+			        <li class="page-item" th:classappend="${bookings.first} ? 'disabled'">
+			            <a class="page-link" th:href="@{'/admin/bookings?page=' + ${bookings.number - 1}}">Previous</a>
+			        </li>
+			        <li class="page-item" th:each="page : ${#numbers.sequence(0, bookings.totalPages - 1)}"
+			            th:classappend="${bookings.number == page} ? 'active'">
+			            <a class="page-link" th:href="@{'/admin/bookings?page=' + ${page}}" th:text="${page + 1}">1</a>
+			        </li>
+			        <li class="page-item" th:classappend="${bookings.last} ? 'disabled'">
+			            <a class="page-link" th:href="@{'/admin/bookings?page=' + ${bookings.number + 1}}">Next</a>
+			        </li>
+			    </ul>
+			</nav>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>

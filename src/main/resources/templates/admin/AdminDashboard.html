@@ -42,19 +42,30 @@
             <p class="text-muted">Manage your photo gallery with ease</p>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="row mb-4 justify-content-center">
-            <div class="col-lg-3 col-md-6 mb-3">
-                <a href="/admin/add" class="btn btn-success w-100 shadow">
-                    <i class="bi bi-plus-lg me-2"></i> Add New Photo
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-3">
-                <a href="/admin/manage-photos" class="btn btn-primary w-100 shadow">
-                    <i class="bi bi-images me-2"></i> Manage Photos
-                </a>
-            </div>
-        </div>
+		<!-- Quick Actions -->
+		<div class="row mb-4 justify-content-center">
+		    <div class="col-lg-3 col-md-6 mb-3">
+		        <a href="/admin/add" class="btn btn-success w-100 shadow">
+		            <i class="bi bi-plus-lg me-2"></i> Add New Photo
+		        </a>
+		    </div>
+		    <div class="col-lg-3 col-md-6 mb-3">
+		        <a href="/admin/manage-photos" class="btn btn-primary w-100 shadow">
+		            <i class="bi bi-images me-2"></i> Manage Photos
+		        </a>
+		    </div>
+		    <div class="col-lg-3 col-md-6 mb-3">
+		        <a href="/admin/bookings" class="btn btn-warning w-100 shadow">
+		            <i class="bi bi-journal-text me-2"></i> View Bookings
+		        </a>
+		    </div>
+		    <div class="col-lg-3 col-md-6 mb-3">
+		        <a href="/admin/messages" class="btn btn-info w-100 shadow">
+		            <i class="bi bi-envelope-open me-2"></i> View Messages
+		        </a>
+		    </div>
+		</div>
+
 
         <!-- Statistics Section -->
         <div class="row mb-4">
@@ -71,16 +82,19 @@
             <div class="col-md-6 col-lg-8 mb-3">
                 <div class="card h-100">
                     <div class="card-header">
-                        <i class="bi bi-clock-history stat-icon"></i> Recent Uploads
+                        <i class="bi bi-calendar-check stat-icon"></i> Recent Bookings
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li th:each="photo : ${recentPhotos}" class="list-group-item d-flex justify-content-between align-items-center">
-                                <span th:text="${photo.title}">Sample Title</span>
-                                <small class="text-muted" th:text="${#temporals.format(photo.dateCreated, 'yyyy-MM-dd')}">2022-02-20</small>
+                            <li th:each="booking : ${recentBookings}" class="list-group-item d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong th:text="${booking.fullName}">Full Name</strong> — <span th:text="${booking.serviceType}">Service</span><br>
+                                    <small class="text-muted">Preferred: <span th:text="${booking.datePreferred}">2025-05-08</span></small>
+                                </div>
+                                <small th:text="${booking.email}" class="text-muted">email@example.com</small>
                             </li>
-                            <li th:if="${#lists.isEmpty(recentPhotos)}" class="list-group-item text-muted text-center">
-                                No recent uploads
+                            <li th:if="${#lists.isEmpty(recentBookings)}" class="list-group-item text-muted text-center">
+                                No bookings yet.
                             </li>
                         </ul>
                     </div>
@@ -88,27 +102,27 @@
             </div>
         </div>
 
-		<!-- Recent Messages -->
-		    <div class="col-12 mb-3">
-		        <div class="card">
-		            <div class="card-header">
-		                <i class="bi bi-envelope-paper stat-icon"></i> Recent Messages
-		            </div>
-		            <div class="card-body">
-		                <ul class="list-group list-group-flush">
-		                    <li th:each="msg : ${recentMessages}" class="list-group-item">
-		                        <strong th:text="${msg.name}">Name</strong> (<span th:text="${msg.email}">email@example.com</span>) <br/>
-		                        <small class="text-muted" th:text="${#temporals.format(msg.dateSent, 'yyyy-MM-dd HH:mm')}">2025-05-08</small>
-		                        <p class="mb-0 mt-1" th:text="${msg.message}">Message content</p>
-		                    </li>
-		                    <li th:if="${#lists.isEmpty(recentMessages)}" class="list-group-item text-muted text-center">
-		                        No messages received yet.
-		                    </li>
-		                </ul>
-		            </div>
-		        </div>
-		    </div>
-		
+        <!-- Recent Messages -->
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-envelope-paper stat-icon"></i> Recent Messages
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li th:each="msg : ${recentMessages}" class="list-group-item">
+                            <strong th:text="${msg.name}">Name</strong> (<span th:text="${msg.email}">email@example.com</span>) <br/>
+                            <small class="text-muted" th:text="${#temporals.format(msg.dateSent, 'yyyy-MM-dd HH:mm')}">2025-05-08</small>
+                            <p class="mb-0 mt-1" th:text="${msg.message}">Message content</p>
+                        </li>
+                        <li th:if="${#lists.isEmpty(recentMessages)}" class="list-group-item text-muted text-center">
+                            No messages received yet.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- Recent Photos Table -->
         <div class="card shadow mb-5">
             <div class="card-header">
@@ -145,10 +159,10 @@
             </div>
         </div>
     </div>
-	<footer class="bg-dark text-white text-center p-4 mt-5">
-	    <p class="mb-0">&copy; 2025 RC Photography. All rights reserved. <i class="bi bi-camera-fill"></i></p>
-	</footer>
 
+    <footer class="bg-dark text-white text-center p-4 mt-5">
+        <p class="mb-0">&copy; 2025 RC Photography. All rights reserved. <i class="bi bi-camera-fill"></i></p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
