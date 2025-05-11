@@ -28,6 +28,23 @@ A Spring Boot web application to manage a professional photography portfolio wit
 ### 🔒 Secure Admin Panel *(future scope)*
 - Admin-only access routes (add basic auth/session-based login later)
 
+
+### 📅 Booking System
+-Users can book photography sessions by selecting:
+
+-Type of service (e.g., wedding, event, portrait)
+
+-Preferred date and time
+
+-Contact details and optional message
+
+-Bookings are saved and viewable in the admin panel
+
+-Admin can view all bookings with pagination
+
+-Admin follows up manually to confirm and finalize the booking
+
+
 ---
 
 ## 🧰 Tech Stack
