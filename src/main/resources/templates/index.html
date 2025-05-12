@@ -1,118 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>RC Photography</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
-    <link href="styles.css" rel="stylesheet"/>
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
-        }
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>RC Photography</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+	<link href="styles.css" rel="stylesheet" />
+	
+	<style>
+		body {
+			background-color: #f8f9fa;
+			font-family: 'Segoe UI', sans-serif;
+		}
+
 		.hero {
-		    background: linear-gradient(rgba(0, 47, 95, 0.6), rgba(0, 47, 95, 0.6)), url('images/hero-bg.jpg') center/cover no-repeat;
-		    color: white;
-		    padding: 6rem 1rem;
+			background: linear-gradient(rgba(0, 47, 95, 0.6), rgba(0, 47, 95, 0.6));
+			color: white;
+			padding: 6rem 1rem;
 		}
 
-        .features .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .features .card:hover {
-            transform: translateY(-5px);
-        }
-        .section-title {
-            font-weight: 600;
-            margin-bottom: 2rem;
-        }
+		.features .card {
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease;
+		}
+
+		.features .card:hover {
+			transform: translateY(-5px);
+		}
+
+		.section-title {
+			font-weight: 600;
+			margin-bottom: 2rem;
+		}
+
 		.carousel-item img {
-		    object-fit: cover;
-		    height: 600px; /* Increased height */
-		    width: 100%;
+			object-fit: cover;
+			height: 600px;
+			/* Increased height */
+			width: 100%;
 		}
-    </style>
+
+		.services .card {
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+		.services .card-img-top {
+			height: 200px; /* or adjust as needed */
+			object-fit: cover;
+			border-top-left-radius: 15px;
+			border-top-right-radius: 15px;
+		}
+
+		.services .card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+		}
+
+		#servicesCarousel {
+			display: flex;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			/* Firefox */
+		}
+
+		#servicesCarousel::-webkit-scrollbar {
+			display: none;
+			/* Chrome, Safari */
+		}
+
+		.services .btn-outline-secondary {
+			background-color: white;
+			border-radius: 50%;
+			padding: 0;
+			width: 40px;
+			height: 40px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+			transition: background-color 0.2s;
+		}
+
+		.services .btn-outline-secondary:active {
+			color: black;
+		}
+
+		.services .btn-outline-secondary:hover {
+			background-color: #f0f0f0;
+			color: black;
+		}
+
+		#testimonialSlider {
+			display: flex;
+			gap: 1rem;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		#testimonialSlider::-webkit-scrollbar {
+			display: none;
+		}
+
+		.testimonial-card {
+			scroll-snap-align: start;
+			transition: transform 0.3s ease;
+		}
+
+		.testimonial-card:hover {
+			transform: translateY(-5px);
+		}
+	</style>
 </head>
+
 <body>
-    <div th:replace="~{Navbar.html}"></div>
+	<div th:replace="~{Navbar.html}"></div>
 
-    <!-- Hero Section -->
-    <section class="hero text-center" data-aos="fade-in">
-        <div class="container">
-            <h1 class="display-4 fw-bold">Welcome to RC Photography</h1>
-            <p class="lead mb-4">Crafting timeless stories through the lens</p>
-            <a href="/portfolio" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-camera-fill me-2"></i>Explore Portfolio</a>
-			<a href="/booking" class="btn btn-light btn-lg px-4"><i class="bi bi-calendar-event me-2"></i>Book Session</a>
-        </div>
-    </section>
+	<!-- Hero Section -->
+	<section class="hero text-center" data-aos="fade-in" id="hero">
+		<div class="container">
+			<h1 class="display-4 fw-bold">Welcome to RC Photography</h1>
+			<p class="lead mb-4">Crafting timeless stories through the lens</p>
+			<a href="/portfolio" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-camera-fill me-2"></i>Explore
+				Portfolio</a>
+			<a href="/booking" class="btn btn-light btn-lg px-4"><i class="bi bi-calendar-event me-2"></i>Book
+				Session</a>
+		</div>
+	</section>
 
-    <!-- Bootstrap Image Slideshow -->
-    <section class="container my-5" data-aos="fade-up">
-        <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner rounded-4 shadow-sm">
-                <div class="carousel-item active">
-                    <img src="images/image1.jpeg" class="d-block w-100" alt="Wedding shoot">
-                </div>
-                <div class="carousel-item">
-                    <img src="images/image2.jpg" class="d-block w-100" alt="Event photo">
-                </div>
-                <div class="carousel-item">
-                    <img src="images/image3.jpeg" class="d-block w-100" alt="Portrait">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
+	<!-- Bootstrap Image Slideshow -->
+	<section class="container my-5" data-aos="fade-up">
+		<div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner rounded-4 shadow-sm">
+				<div class="carousel-item active">
+					<img src="images/image1.jpeg" class="d-block w-100" alt="Wedding shoot">
+				</div>
+				<div class="carousel-item">
+					<img src="images/image2.jpg" class="d-block w-100" alt="Event photo">
+				</div>
+				<div class="carousel-item">
+					<img src="images/image3.jpeg" class="d-block w-100" alt="Portrait">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</section>
 
-    <!-- Features Section -->
-    <section class="features py-5">
-        <div class="container">
-            <h2 class="text-center section-title" data-aos="fade-up"><i class="bi bi-stars"></i> What Sets Us Apart</h2>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="zoom-in">
-                    <div class="card text-center p-4">
-                        <div class="mb-3 text-danger fs-1"><i class="bi bi-heart-fill"></i></div>
-                        <h5 class="fw-semibold">Passion for Photography</h5>
-                        <p class="text-muted">Every frame we capture is filled with purpose and emotion.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card text-center p-4">
-                        <div class="mb-3 text-primary fs-1"><i class="bi bi-camera-reels"></i></div>
-                        <h5 class="fw-semibold">High-End Gear</h5>
-                        <p class="text-muted">We use professional equipment to ensure premium image quality.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card text-center p-4">
-                        <div class="mb-3 text-success fs-1"><i class="bi bi-people-fill"></i></div>
-                        <h5 class="fw-semibold">Client-Focused</h5>
-                        <p class="text-muted">Your story is unique — we tailor every shoot to reflect that.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Services Section -->
+	<section class="services py-5 bg-light" id="services">
+		<div class="container">
+			<h2 class="text-center section-title mb-4" data-aos="fade-up"><i class="bi bi-briefcase-fill"></i> Our
+				Services</h2>
+			<div class="position-relative">
+				<button class="btn btn-outline-secondary position-absolute top-50 start-0 translate-middle-y z-3"
+					id="scrollLeft" aria-label="Scroll left">
+					<i class="bi bi-chevron-left fs-4"></i>
+				</button>
+				<div class="d-flex overflow-auto px-4" id="servicesCarousel" style="scroll-behavior: smooth;">
+					<!-- Example card -->
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up">
+						<img src="images/services/baby.jpeg" class="card-img-top" alt="Born Baby Shoots">
+						<div class="card-body">
+							<h5 class="card-title">New Beginnings – For newborn photography</h5>
+							<p class="card-text">Capture those first magical moments with gentle, themed sessions.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
 
-    <footer class="bg-dark text-white text-center p-4 mt-5">
-        <p class="mb-0">&copy; 2025 RC Photography. All rights reserved. <i class="bi bi-camera-fill"></i></p>
-    </footer>
+					<!-- Repeat similar cards with unique content -->
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="100">
+						<img src="images/services/maternity.jpeg" class="card-img-top" alt="Maternity Shoots">
+						<div class="card-body">
+							<h5 class="card-title">Moments in Bloom – Maternity shoots</h5>
+							<p class="card-text">Celebrate motherhood with elegant and serene portraits.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>AOS.init();</script>
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="200">
+						<img src="images/services/ceremony.jpeg" class="card-img-top" alt="Credile Ceremonies">
+						<div class="card-body">
+							<h5 class="card-title">Cherished Beginnings – Cradle Ceremonies</h5>
+							<p class="card-text">Cultural and traditional ceremonies preserved with elegance.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="200">
+						<img src="images/services/pre-birthday.jpeg" class="card-img-top" alt="Credile Ceremonies">
+						<div class="card-body">
+							<h5 class="card-title">Little Steps to Big Days – Pre-Birthday Shoots</h5>
+							<p class="card-text">Heartfelt portraits capturing the joy of growing up.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="300">
+						<img src="images/services/birthday.jpeg" class="card-img-top" alt="Birthday Shoots">
+						<div class="card-body">
+							<h5 class="card-title">Golden Celebrations – Birthday shoots</h5>
+							<p class="card-text">From pre-birthday to the big day, create lasting birthday memories.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="400">
+						<img src="images/services/pre-wedding.jpeg" class="card-img-top" alt="Pre-Wedding Shoots">
+						<div class="card-body">
+							<h5 class="card-title">Love in Frames – Pre-wedding shoots</h5>
+							<p class="card-text">Tell your love story with cinematic pre-wedding sessions.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="400">
+						<img src="images/services/wedding.jpeg" class="card-img-top" alt="Pre-Wedding Shoots">
+						<div class="card-body">
+							<h5 class="card-title">Signature Weddings – Premium Wedding Photography</h5>
+							<p class="card-text">Elegant storytelling for your most cherished moments.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="500">
+						<img src="images/services/model.webp" class="card-img-top" alt="Model Shoots">
+						<div class="card-body">
+							<h5 class="card-title">Runway Ready – Model shoots</h5>
+							<p class="card-text">Portfolio-ready shoots for aspiring and professional models.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="600">
+						<img src="images/services/commercial.webp" class="card-img-top" alt="Commercial Events">
+						<div class="card-body">
+							<h5 class="card-title">Corporate Frames – Commercial events</h5>
+							<p class="card-text">Corporate events covered with professionalism and precision.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="700">
+						<img src="images/services/fashion.webp" class="card-img-top" alt="Fashion Photography">
+						<div class="card-body">
+							<h5 class="card-title">Style Chronicles – Fashion photography</h5>
+							<p class="card-text">Stylized shoots that showcase garments and individuality.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="700">
+						<img src="images/services/add.webp" class="card-img-top" alt="Fashion Photography">
+						<div class="card-body">
+							<h5 class="card-title">Vision in Motion – Ad Shoots</h5>
+							<p class="card-text">Bold, dynamic visuals that captivate audiences</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+
+					<!-- Others... -->
+					<div class="card mx-2 flex-shrink-0" style="width: 250px;" data-aos="fade-up" data-aos-delay="800">
+						<img src="images/services/others.webp" class="card-img-top" alt="Other Services">
+						<div class="card-body">
+							<h5 class="card-title">...and More</h5>
+							<p class="card-text">Got something else in mind? We’ll bring your vision to life.</p>
+							<a href="/booking" class="btn btn-primary btn-sm">Book Now</a>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y z-3"
+					id="scrollRight" aria-label="Scroll right">
+					<i class="bi bi-chevron-right fs-4"></i>
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials Section -->
+	<section class="testimonials py-5 bg-light" data-aos="fade-up" id="testimonials">
+		<div class="container">
+			<h2 class="text-center section-title mb-4"><i class="bi bi-chat-quote"></i> What Our Clients Say</h2>
+			<div class="d-flex overflow-auto px-2" id="testimonialSlider">
+				<!-- Testimonial 1 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“RC Photography beautifully captured our son’s birthday. Every
+							photo felt alive!”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Sravani Reddy</h6>
+								<small class="text-muted">Madhapur, Homemaker</small>
+								<div class="text-warning">★★★★★</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Testimonial 2 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up"
+					data-aos-delay="100">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“I’m impressed by the professionalism. They made our maternity
+							shoot a memory forever.”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Deepika Nalluri</h6>
+								<small class="text-muted">Kukatpally, IT Professional</small>
+								<div class="text-warning">★★★★☆</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Testimonial 3 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up"
+					data-aos-delay="200">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“From candid to creative, they nailed our wedding moments.
+							Highly recommend!”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Vinay Teja</h6>
+								<small class="text-muted">Secunderabad, Banker</small>
+								<div class="text-warning">★★★★★</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Testimonial 4 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up"
+					data-aos-delay="300">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“We had a pre-wedding shoot. The team was super patient and
+							gave us amazing shots!”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Lakshmi Priya</h6>
+								<small class="text-muted">Gachibowli, Content Creator</small>
+								<div class="text-warning">★★★★☆</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Testimonial 5 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up"
+					data-aos-delay="400">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“Booked for a corporate event — everything was handled
+							professionally and delivered fast!”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Mohammed Arif</h6>
+								<small class="text-muted">Banjara Hills, Event Manager</small>
+								<div class="text-warning">★★★★★</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Testimonial 6 -->
+				<div class="testimonial-card card mx-2 flex-shrink-0 p-3" style="width: 300px;" data-aos="fade-up"
+					data-aos-delay="500">
+					<div class="card-body">
+						<p class="text-muted fst-italic">“We loved the creativity during our fashion shoot. It was such
+							a fun experience!”</p>
+						<div class="d-flex align-items-center mt-3">
+							<div>
+								<h6 class="mb-0">Ananya Rao</h6>
+								<small class="text-muted">Jubilee Hills, Fashion Designer</small>
+								<div class="text-warning">★★★★☆</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features Section -->
+	<section class="features py-5">
+		<div class="container">
+			<h2 class="text-center section-title" data-aos="fade-up"><i class="bi bi-stars"></i> What Sets Us Apart</h2>
+			<div class="row g-4">
+				<div class="col-md-4" data-aos="zoom-in">
+					<div class="card text-center p-4">
+						<div class="mb-3 text-danger fs-1"><i class="bi bi-heart-fill"></i></div>
+						<h5 class="fw-semibold">Passion for Photography</h5>
+						<p class="text-muted">Every frame we capture is filled with purpose and emotion.</p>
+					</div>
+				</div>
+				<div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+					<div class="card text-center p-4">
+						<div class="mb-3 text-primary fs-1"><i class="bi bi-camera-reels"></i></div>
+						<h5 class="fw-semibold">High-End Gear</h5>
+						<p class="text-muted">We use professional equipment to ensure premium image quality.</p>
+					</div>
+				</div>
+				<div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+					<div class="card text-center p-4">
+						<div class="mb-3 text-success fs-1"><i class="bi bi-people-fill"></i></div>
+						<h5 class="fw-semibold">Client-Focused</h5>
+						<p class="text-muted">Your story is unique — we tailor every shoot to reflect that.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="bg-dark text-white pt-5 pb-3 mt-5">
+		<div class="container">
+			<div class="row">
+
+				<!-- Shop Info -->
+				<div class="col-md-4 mb-4">
+					<h5 class="text-uppercase mb-3">About Us</h5>
+					<p>
+						<strong>Our Brand:</strong> RC Photography <br>
+						<strong>Address:</strong> Hanamkonda , Warangal<br>
+						<strong>Founder:</strong> Ravi Chandra | Bringing <strong> 18 years of excellence in wedding
+							photography.</strong> <br>
+					</p>
+				</div>
+
+				<!-- Quick Links -->
+				<div class="col-md-4 mb-4">
+					<h5 class="text-uppercase mb-3">Quick Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="#hero" class="text-white text-decoration-none">Home</a></li>
+						<li><a href="#services" class="text-white text-decoration-none">Services</a></li>
+						<li><a href="#testimonials" class="text-white text-decoration-none">Testimonials</a></li>
+						<li><a href="/contact" class="text-white text-decoration-none">Contact</a></li>
+					</ul>
+				</div>
+
+				<!-- Contact or Opening Hours -->
+				<div class="col-md-4 mb-4">
+					<h5 class="text-uppercase mb-3">Contact</h5>
+					<p>
+						<strong>Phone:</strong>09948429795<br>
+						<strong>Email:</strong>rach369ind@gmail.com<br>
+						<strong>Hours:</strong> Mon - Sat: 10 AM - 8 PM
+					</p>
+				</div>
+
+			</div>
+
+			<!-- Copyright -->
+			<div class="text-center border-top pt-3 mt-3">
+				<p class="mb-0">&copy; 2025 RC Photography. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+	<script>
+		AOS.init();
+
+		// --- Services Carousel ---
+		const servicesCarousel = document.getElementById('servicesCarousel');
+		const scrollLeftBtn = document.getElementById('scrollLeft');
+		const scrollRightBtn = document.getElementById('scrollRight');
+
+		scrollLeftBtn.addEventListener('click', () => {
+			servicesCarousel.scrollBy({left: -300, behavior: 'smooth'});
+		});
+
+		scrollRightBtn.addEventListener('click', () => {
+			servicesCarousel.scrollBy({left: 300, behavior: 'smooth'});
+		});
+
+		let servicesInterval = setInterval(() => {
+			if (servicesCarousel.scrollLeft + servicesCarousel.clientWidth >= servicesCarousel.scrollWidth) {
+				servicesCarousel.scrollTo({left: 0, behavior: 'smooth'});
+			} else {
+				servicesCarousel.scrollBy({left: 300, behavior: 'smooth'});
+			}
+		}, 3000);
+
+		servicesCarousel.addEventListener('mouseover', () => clearInterval(servicesInterval));
+		servicesCarousel.addEventListener('mouseout', () => {
+			servicesInterval = setInterval(() => {
+				if (servicesCarousel.scrollLeft + servicesCarousel.clientWidth >= servicesCarousel.scrollWidth) {
+					servicesCarousel.scrollTo({left: 0, behavior: 'smooth'});
+				} else {
+					servicesCarousel.scrollBy({left: 300, behavior: 'smooth'});
+				}
+			}, 3000);
+		});
+
+		// --- Testimonials Carousel ---
+		const testimonialSlider = document.getElementById('testimonialSlider');
+
+		let testimonialInterval = setInterval(() => {
+			if (testimonialSlider.scrollLeft + testimonialSlider.clientWidth >= testimonialSlider.scrollWidth) {
+				testimonialSlider.scrollTo({left: 0, behavior: 'smooth'});
+			} else {
+				testimonialSlider.scrollBy({left: 320, behavior: 'smooth'}); // adjust step size as needed
+			}
+		}, 3000);
+
+		testimonialSlider.addEventListener('mouseover', () => clearInterval(testimonialInterval));
+		testimonialSlider.addEventListener('mouseout', () => {
+			testimonialInterval = setInterval(() => {
+				if (testimonialSlider.scrollLeft + testimonialSlider.clientWidth >= testimonialSlider.scrollWidth) {
+					testimonialSlider.scrollTo({left: 0, behavior: 'smooth'});
+				} else {
+					testimonialSlider.scrollBy({left: 320, behavior: 'smooth'});
+				}
+			}, 3000);
+		});
+	</script>
+
 </body>
+
 </html>
