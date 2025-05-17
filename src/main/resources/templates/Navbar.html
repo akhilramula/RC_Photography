@@ -1,8 +1,14 @@
+<style>
+	.nav-link:hover{
+		transform: translateY(-2px);
+		transition: 0.2s transform ease;
+	}
+</style>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow" data-aos="fade-down">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="images/logo.png" alt="RC Photography Logo" style="height: 50px; width: auto;">
+			<img src="images/logo.png" alt="RC Photography Logo" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -15,29 +21,29 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/portfolio">
+                    <a class="nav-link active" href="/portfolio">
                         <i class="bi bi-image-fill"></i> Portfolio
                     </a>
                 </li>
 				<li class="nav-item">
-				    <a class="nav-link" href="/booking">
+				    <a class="nav-link active" href="/booking">
 				        <i class="bi bi-calendar-check me-1"></i> Book Session
 				    </a>
 				</li>
 		
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">
+                    <a class="nav-link active" href="/about">
                         <i class="bi bi-person-fill"></i> About
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">
+                    <a class="nav-link active" href="/contact">
                         <i class="bi bi-envelope-fill"></i> Contact
                     </a>
                 </li>
                 <!-- Add Login link for admin (optional) -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">
+                    <a class="nav-link active" href="/login">
                         <i class="bi bi-lock-fill"></i>Login
                     </a>
                 </li>

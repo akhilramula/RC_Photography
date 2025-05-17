@@ -1,59 +1,40 @@
-# RC Photography Web Application
+# RC Photography
 
-A Spring Boot web application to manage a professional photography portfolio with features like photo upload, edit/delete, and message handling.
+This is a responsive photography website developed for a local business to showcase services, testimonials, and contact details.  
+The project includes animated sections, a carousel, and clean modern UI suitable for small businesses or local entrepreneurs.
 
-## 🚀 Features
+## Technologies Used
 
-### 📷 Photo Management
-- Upload multiple photos with title and description
-- Edit photo metadata and image
-- Delete photos
-- Pagination for managing large photo galleries
-- View recent photo uploads on the dashboard
+- Backend: Java, Spring Boot, Spring MVC, Spring Data JPA
+- Frontend: Thymeleaf, Bootstrap 5, AOS.js
+- Database: MySQL (or H2 for testing)
+- File Uploads: Multipart handling with image previews
 
-### 💬 Contact Messages
-- View recent messages sent via the public site
-- Organized in descending order of date sent
+## Features
 
-### 📊 Admin Dashboard
-- See total photo count
-- Recent photo uploads
-- Recent contact messages
+- Responsive design for mobile, tablet, and desktop
+- Auto-scrolling testimonial carousel
+- Scrollable service cards
+- Contact and location info
+- Animated content sections
+- Professional footer with quick links
 
-### 🖼️ Image Handling
-- Image previews in photo lists
-- Server-side image upload with timestamp-based filenames
-- Files are stored in a local directory (`D:/uploads` by default)
+## About the Project
 
-### 🔒 Secure Admin Panel *(future scope)*
-- Admin-only access routes (add basic auth/session-based login later)
+This landing page was designed and developed by **Ramula Akhil** as a client project for a local business.  
+Certain public information (shop address, email, photo) is displayed with the client’s awareness, as it's also used in their public advertising materials.
 
+All design and development work was done from scratch, with attention to SEO, responsiveness, and accessibility.
 
-### 📅 Booking System
--Users can book photography sessions by selecting:
+## Developer
 
--Type of service (e.g., wedding, event, portrait)
+**Ramula Akhil**  
+Full Stack Developer  
+https://github.com/akhilramula
 
--Preferred date and time
+## License
 
--Contact details and optional message
+This project is shared for **portfolio and educational purposes only**.  
+Client branding and images should not be reused or redistributed.
 
--Bookings are saved and viewable in the admin panel
-
--Admin can view all bookings with pagination
-
--Admin follows up manually to confirm and finalize the booking
-
-
----
-
-## 🧰 Tech Stack
-
-- **Backend**: Java, Spring Boot, Spring MVC, Spring Data JPA
-- **Frontend**: Thymeleaf, Bootstrap 5, AOS.js
-- **Database**: MySQL (or H2 for testing)
-- **File Uploads**: Multipart handling with image previews
-
----
-
-
+© 2025 – Designed by Ramula Akhil
